@@ -126,3 +126,6 @@ Astfel pentru o shiftare de 4 bytes per time , avem rezultatele urmatoare : <br>
  * Numarul maxim de coleziuni care se se gaseste in tabelul de disperie este **4**
 
 Am putut minimiza dimensiunea listei de coleziune , in schimb s au marit numarul de coleziuni.
+Am nevoie de o functie care ar putea avea o disperise mai buna , in loc sa ramana 30-40% din spatiu liber , trebuie sa folosim aproape la maxim tot spatiul , reducand de la 30-40% la 5-10%.
+
+O posibila solutie ar fi modificarea functiei de hashing care ar putea acoperi o mai mare "zona" din vector , dupa care o mica optimizare ar fi si tratarea coleziunilor , dar nu cu metoda `Chaining`.
