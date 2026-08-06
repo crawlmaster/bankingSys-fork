@@ -139,6 +139,43 @@ void verifyFile(dbConfig *fileConfig)
   fclose(file);
 }
 
+void formatTime(long timestamp, char *buffer, size_t bufferSize)
+{
+  time_t raw_time = (time_t)timestamp;
+
+  struct tm *timeInfo = localtime(&raw_time);
+  if (timeInfo == NULL)
+  {
+    printf(BOLD_RED);
+    printf("Invalid date!\n");
+    printf(RESET);
+    return;
+  }
+
+  strftime(buffer, bufferSize, "%Y-%m-%d %H:%M:%S", timeInfo);
+}
+
+void loadingConfig(dbConfig *config)
+{
+  verifyFile(config);
+}
+
+void displayConfig(dbConfig *config)
+{
+  char createdTime_mod[30];
+  formatTime(config->createdTime, createdTime_mod, sizeof(createdTime_mod));
+  char lastModTime[30];
+  formatTime(config->lastTimeModified, lastModTime, sizeof(lastModTime));
+
+  printf("Key word : %s\n", config->headerKw);
+  printf("Created time : %s\n", createdTime_mod);
+  printf("Cipher shift : %d\n", config->cypherShift);
+  printf("Encripted : %d\n", config->isEncrypted);
+  printf("Last id : %d\n", config->lastID);
+  printf("Last time modified : %s\n", lastModTime);
+  printf("Number of clients : %d\n", config->numberOfClients);
+}
+
 // DEFINE SECTION
 #define MAX_USER_NAME_LENGHT 60
 #define MAX_USER_PASS_LENGHT 64
@@ -205,39 +242,7 @@ void adminUIFunction()
   sleep(1);
 }
 
-void formatTime(long timestamp , char *buffer , size_t bufferSize){
-  time_t raw_time = (time_t)timestamp;
 
-  struct tm *timeInfo = localtime(&raw_time);
-  if(timeInfo == NULL){
-    printf(BOLD_RED);
-    printf("Invalid date!\n");
-    printf(RESET);
-    return;
-  }
-
-  strftime(buffer , bufferSize , "%Y-%m-%d %H:%M:%S" , timeInfo);
-
-}
-
-void loadingConfig(dbConfig *config){
-  verifyFile(config);
-}
-
-void displayConfig(dbConfig *config){
-  char createdTime_mod[30];
-  formatTime(config->createdTime, createdTime_mod, sizeof(createdTime_mod));
-  char lastModTime[30];
-  formatTime(config->lastTimeModified, lastModTime, sizeof(lastModTime));
-
-  printf("Key word : %s\n", config->headerKw);
-  printf("Created time : %s\n", createdTime_mod);
-  printf("Cipher shift : %d\n", config->cypherShift);
-  printf("Encripted : %d\n", config->isEncrypted);
-  printf("Last id : %d\n", config->lastID);
-  printf("Last time modified : %s\n", lastModTime);
-  printf("Number of clients : %d\n", config->numberOfClients);
-}
 
 int main(void)
 {

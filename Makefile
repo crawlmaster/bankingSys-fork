@@ -20,10 +20,10 @@ BOLD_YELLOW 	= \033[1;33m
 
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -g 
-SRC = main_sys.c 
+SRC = coreFile.c 
 
 EXEC_PATH=executable_files
-EXEC=$(EXEC_PATH)/main_sys
+EXEC=$(EXEC_PATH)/coreFile
 
 all : $(EXEC)
 
