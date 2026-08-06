@@ -228,6 +228,8 @@ Utilizatorul interacționează prin interfața de linie de comandă:
 
 ---
 
+## Project still in development!
+
 ## 📜 Licență
 
 Distribuit sub **licența MIT**. Creat în scop educațional și demonstrativ, pentru programare de sistem în C, securitate și arhitectură software de nivel scăzut.
