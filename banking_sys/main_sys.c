@@ -55,7 +55,7 @@ void saveConfig(dbConfig *config)
   }
   fclose(file);
   printf(BOLD_GREEN);
-  printf("Config file (.meta) was modified successfully!\n");
+  printf("Config file (.meta) was saved successfully!\n");
   printf(RESET);
 }
 

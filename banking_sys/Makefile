@@ -44,6 +44,13 @@ run: $(EXEC)
 
 	@./$(EXEC)
 
+valgrind: $(EXEC)
+	@echo ""
+	@echo "$(BOLD_BLUE)[Valgrind]$(NC)$(BLUE) - Checking for memory leaks...$(NC)"
+	@echo ""
+
+	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(EXEC)
+
 clean :
 	@echo ""
 	@echo "$(newline)$(BOLD_YELLOW)[cleaning ...]$(NC)$(YELLOW) Removing executabile files and temporary used directories$(newline)"
