@@ -1,6 +1,7 @@
-./dataBase/
-./executable_files/
+dataBase/
+executableFiles/
 *.gdb_history
-./testing/
+testing/
 *.o
-./docs/
+*.exe
+docs/
