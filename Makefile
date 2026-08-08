@@ -22,7 +22,7 @@ CC = gcc
 CFLAGS = -Wall -Werror -Wextra -g 
 SRC = coreFile.c 
 
-EXEC_PATH=executable_files
+EXEC_PATH=executableFiles
 EXEC=$(EXEC_PATH)/coreFile
 
 all : $(EXEC)

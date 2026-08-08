@@ -1,4 +1,4 @@
-pass.txt
-banking_sys/dataBase/
-banking_sys/executable_files/
+./dataBase/
+./executable_files/
 *.gdb_history
+./testing/
