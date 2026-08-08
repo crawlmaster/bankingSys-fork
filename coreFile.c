@@ -5,6 +5,9 @@
 #include <time.h>
 #include <string.h>
 
+#include "./include/criptString.h"
+
+
 // text weigth - color
 #define BOLD_GREEN "\x1b[1;32m"
 #define GREEN "\x1b[32m"
@@ -62,12 +65,15 @@ void saveConfig(dbConfig *config)
 short int createConfigFile(dbConfig *config)
 {
   printf("Initializare date...\n");
-  memcpy(config->headerKw , CONFIG_KW , 4);
+
+  memset(config , 0 , sizeof(dbConfig));
+
+  memcpy(config->headerKw , CONFIG_KW , 5);
   config->createdTime = (__uint64_t)time(NULL);
+  config->lastTimeModified = (__uint64_t)time(NULL);
   config->cypherShift = 0;
   config->isEncrypted = 0;
   config->lastID = 0;
-  config->lastTimeModified = (__uint64_t)time(NULL);
   config->numberOfClients = 0;
   printf(BOLD_GREEN);
   printf("\n%s file was initialy configured!\n" , FILE_PATH);
@@ -139,7 +145,7 @@ void verifyFile(dbConfig *fileConfig)
   fclose(file);
 }
 
-void formatTime(long timestamp, char *buffer, size_t bufferSize)
+void formatTime(__uint64_t timestamp, char *buffer, size_t bufferSize)
 {
   time_t raw_time = (time_t)timestamp;
 
@@ -162,9 +168,10 @@ void loadingConfig(dbConfig *config)
 
 void displayConfig(dbConfig *config)
 {
-  char createdTime_mod[30];
+  char createdTime_mod[30] = {0};
   formatTime(config->createdTime, createdTime_mod, sizeof(createdTime_mod));
-  char lastModTime[30];
+
+  char lastModTime[30] = {0};
   formatTime(config->lastTimeModified, lastModTime, sizeof(lastModTime));
 
   printf("Key word : %s\n", config->headerKw);
@@ -191,6 +198,22 @@ typedef struct client
 } userAcc, *userAcc_ptr;
 
 // void cript_database (different file with separated header files)
+void simulateEncryption(){
+  printf("Enter a text : ");
+  char *string = malloc(sizeof(char) * 40);
+  int c = getchar();
+  int stringSize = 0;
+  while(c != '\0' && c != '\n'){
+    string[stringSize++] = c;
+    c = getchar();
+  }
+  string[stringSize] = '\0';
+  cryptString(&string);
+  printf("Encrypted string : %s\n" , string);
+  decryptString(&string);
+  printf("Decrypted string : %s\n" , string);
+  free(string);
+}
 // void decript_database (same as cript_database function)
 
 // userAcc_ptr __add_client_to_dataBase
@@ -240,6 +263,7 @@ void adminUIFunction()
   printf("\nYou're in the admin section of the program!\n");
   simulare_incarcare(1000);
   sleep(1);
+  simulateEncryption();
 }
 
 

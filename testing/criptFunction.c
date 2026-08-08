@@ -61,7 +61,7 @@ char shiftDigitBackwards(char number){
 	return number;
 }
 
-void cript_string(char **string){
+void criptString(char **string){
 	for(int i = 0 ; i < (int)strlen(*string) ; ++i){
 		if(isalpha((*string)[i])) (*string)[i] = shiftLetterForward((*string)[i]);
 		else if(isdigit((*string)[i])) (*string)[i] = shiftNumberForward((*string)[i]);
@@ -73,7 +73,7 @@ void cript_string(char **string){
 	}
 }
 
-void decrypt_string(char **string){
+void decriptString(char **string){
 	for(int i = 0; i < (int)strlen(*string) ; ++i){
 		if(isalpha((*string)[i])) (*string)[i] = shiftLetterBackwards(((*string)[i]));
 		else if(isdigit(((*string)[i]))) (*string)[i] = shiftDigitBackwards(((*string)[i]));
@@ -117,7 +117,7 @@ int main(void){
 	cript_string(&string);
 	printf("String ul dupa criptare : %s\n", string);
 	
-	decrypt_string(&string);
+	decript_string(&string);
 	printf("String ul dupa decriptare : %s\n", string);
 
 	// FILE *outputFile = fopen("outputCript.txt" , "w");

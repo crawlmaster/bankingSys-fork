@@ -21,6 +21,7 @@ BOLD_YELLOW 	= \033[1;33m
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -g 
 SRC = coreFile.c 
+EXT = ./src/cryptString.c
 
 EXEC_PATH=executableFiles
 EXEC=$(EXEC_PATH)/coreFile
@@ -32,7 +33,7 @@ $(EXEC): $(SRC)
 	@echo "$(newline)$(BOLD_BLUE)[INFO]$(NC) $(BLUE) - Se creeaza directorul pentru executabil : $(EXEC_PATH)$(NC)"
 	@mkdir -p $(EXEC_PATH)
 	@echo "$(BOLD_YELLOW)[Compiling]$(NC)$(YELLOW) - Se compileaza executabilul : $(SRC)$(NC)"
-	@$(CC) $(CFLAGS) -o $(EXEC) $(SRC) 
+	@$(CC) $(CFLAGS) -o $(EXEC) $(SRC) $(EXT)
 	@echo "$(BOLD_GREEN)[Success]$(NC)$(GREEN) - Executabilul a fost creat cu succes in : $(EXEC)$(NC)"
 	@echo "$(BOLD_BLUE)[INFO]$(NC)$(BLUE) - run executable file with : make run$(NC)$(newline)"
 	@echo ""

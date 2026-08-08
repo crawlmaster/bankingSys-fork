@@ -2,3 +2,5 @@
 ./executable_files/
 *.gdb_history
 ./testing/
+*.o
+./docs/
