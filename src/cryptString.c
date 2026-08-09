@@ -5,17 +5,22 @@
 #include <ctype.h>
 
 #define LAST_LETTER 26
+#define FIRST_NUMBER 10
+#define FIRST_LETTER_LOWERCASE_ASCIICODE 97
+#define FIRST_LETTER_UPPERCASE_ASCIICODE 65
+#define LAST_LETTER_LOWERCASE_ASCIICODE 122
+#define LAST_LETTER_UPPERCASE_ASCIICODE 90
 
 char shiftLetterForward(char letter)
 {
-	if(letter >= 'a' && letter <= 'z'){
-		if(letter + SHIFT > 'z'){
+	if(letter >= FIRST_LETTER_LOWERCASE_ASCIICODE && letter <= LAST_LETTER_LOWERCASE_ASCIICODE){
+		if(letter + SHIFT > LAST_LETTER_LOWERCASE_ASCIICODE){
 			letter = (letter + SHIFT) - LAST_LETTER;
 		} else {
 			letter += SHIFT;
 		}
 	} else {
-		if(letter + SHIFT > 'Z'){
+		if(letter + SHIFT > LAST_LETTER_UPPERCASE_ASCIICODE){
 			letter = (letter + SHIFT) - LAST_LETTER;
 		} else {
 			letter += SHIFT;
@@ -28,7 +33,7 @@ char shiftNumberForward(char number)
 {
 	if (number + SHIFT > '9')
 	{
-		number = (number + SHIFT) - 10;
+		number = (number + SHIFT) - FIRST_NUMBER;
 	}
 	else
 	{
@@ -39,11 +44,11 @@ char shiftNumberForward(char number)
 
 char shiftLetterBackwards(char letter)
 {
-	if (letter >= 'a' && letter <= 'z')
+	if (letter >= FIRST_LETTER_LOWERCASE_ASCIICODE && letter <= LAST_LETTER_LOWERCASE_ASCIICODE)
 	{
-		if (letter - SHIFT < 'a')
+		if (letter - SHIFT < FIRST_LETTER_LOWERCASE_ASCIICODE)
 		{
-			letter = (letter - SHIFT) + 26;
+			letter = (letter - SHIFT) + LAST_LETTER;
 		}
 		else
 		{
@@ -52,9 +57,9 @@ char shiftLetterBackwards(char letter)
 	}
 	else
 	{
-		if (letter - SHIFT < 'A')
+		if (letter - SHIFT < FIRST_LETTER_UPPERCASE_ASCIICODE)
 		{
-			letter = (letter - SHIFT) + 26;
+			letter = (letter - SHIFT) + LAST_LETTER;
 		}
 		else
 		{
@@ -68,7 +73,7 @@ char shiftDigitBackwards(char number)
 {
 	if (number - SHIFT < '0')
 	{
-		number = (number - SHIFT) + 10;
+		number = (number - SHIFT) + FIRST_NUMBER;
 	}
 	else
 	{
@@ -103,8 +108,9 @@ void decryptString(char **string)
 			(*string)[i] = shiftLetterBackwards(((*string)[i]));
 		else if (isdigit(((*string)[i])))
 			(*string)[i] = shiftDigitBackwards(((*string)[i]));
-		else
-		{
+		else if((*string)[i] == ' ')
+			continue;
+		else {
 			printf("Invalid Character !\n");
 			exit(EXIT_FAILURE);
 		}
@@ -112,3 +118,8 @@ void decryptString(char **string)
 }
 
 #undef LAST_LETTER
+#undef FIRST_NUMBER
+#undef FIRST_LETTER_LOWERCASE_ASCIICODE
+#undef FIRST_LETTER_UPPERCASE_ASCIICODE
+#undef LAST_LETTER_LOWERCASE_ASCIICODE
+#undef LAST_LETTER_UPPERCASE_ASCIICODE

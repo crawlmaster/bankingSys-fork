@@ -71,7 +71,7 @@ short int createConfigFile(dbConfig *config)
   memcpy(config->headerKw , CONFIG_KW , 5);
   config->createdTime = (__uint64_t)time(NULL);
   config->lastTimeModified = (__uint64_t)time(NULL);
-  config->cypherShift = 0;
+  config->cypherShift = SHIFT;
   config->isEncrypted = 0;
   config->lastID = 0;
   config->numberOfClients = 0;
@@ -173,14 +173,16 @@ void displayConfig(dbConfig *config)
 
   char lastModTime[30] = {0};
   formatTime(config->lastTimeModified, lastModTime, sizeof(lastModTime));
-
+  printf(BOLD);
+  printf("\nConfig file : \n");
+  printf(RESET);
   printf("Key word : %s\n", config->headerKw);
-  printf("Created time : %s\n", createdTime_mod);
-  printf("Cipher shift : %d\n", config->cypherShift);
-  printf("Encripted : %d\n", config->isEncrypted);
-  printf("Last id : %d\n", config->lastID);
-  printf("Last time modified : %s\n", lastModTime);
   printf("Number of clients : %d\n", config->numberOfClients);
+  printf("Last id : %d\n", config->lastID);
+  printf("Created time : %s\n", createdTime_mod);
+  printf("Last time modified : %s\n", lastModTime);
+  printf("Cipher shift : %d\n", config->cypherShift);
+  printf("Encripted : %s\n\n", (config->isEncrypted == 1) ? "Yes" : "NO");
 }
 
 // DEFINE SECTION
@@ -199,13 +201,19 @@ typedef struct client
 
 // void cript_database (different file with separated header files)
 void simulateEncryption(){
+  int c;
+  //clears the stdin buffer 
+  while((c = getchar()) != '\n' && c != '\0');
+  
   printf("Enter a text : ");
-  char *string = malloc(sizeof(char) * 40);
-  int c = getchar();
+  char *string = NULL; 
+  string = malloc(sizeof(char) * 40);
   int stringSize = 0;
-  while(c != '\0' && c != '\n'){
-    string[stringSize++] = c;
-    c = getchar();
+  int a;
+  a = getchar();
+  while (a != '\n' && a != '\0'){
+    string[stringSize++] = a;
+    a = getchar();
   }
   string[stringSize] = '\0';
   cryptString(&string);
