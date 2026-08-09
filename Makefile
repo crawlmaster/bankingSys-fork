@@ -21,7 +21,7 @@ BOLD_YELLOW 	= \033[1;33m
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -g 
 SRC = coreFile.c 
-EXT = ./src/cryptString.c
+EXT = ./src/cryptString.c ./src/configDB.c
 
 EXEC_PATH=executableFiles
 EXEC=$(EXEC_PATH)/coreFile
