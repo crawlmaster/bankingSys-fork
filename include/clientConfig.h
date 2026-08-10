@@ -2,11 +2,14 @@
 #define CLIENT_CONFIG_H
 
 #include <stdio.h>
+#include "configDB.h"
 
 // DEFINE SECTION
 #define MAX_USER_NAME_LENGHT 30
 #define MAX_USER_PASS_LENGHT 16
 #define MAX_IBAN_LENGHT 25
+#define MAX_BUFFER_SIZE 140
+#define DATABASE_FILE "dataBase/dataBase.txt"
 
 #pragma pack(push , 1)
 typedef struct client
@@ -21,5 +24,9 @@ typedef struct client
 } userAcc, *userAcc_ptr;
 
 #pragma pack(pop)
+
+// functions
+
+void loadDataBase(dbConfig *dataBaseConfig);
 
 #endif

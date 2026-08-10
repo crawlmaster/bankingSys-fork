@@ -1,4 +1,4 @@
-#include "../include/criptString.h"
+#include "../include/cryptString.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -90,13 +90,8 @@ void cryptString(char **string)
 			(*string)[i] = shiftLetterForward((*string)[i]);
 		else if (isdigit((*string)[i]))
 			(*string)[i] = shiftNumberForward((*string)[i]);
-		else if ((*string)[i] == ' ')
-			continue;
 		else
-		{
-			printf("Invalid Character !\n");
-			exit(EXIT_FAILURE);
-		}
+			continue;
 	}
 }
 
@@ -108,12 +103,8 @@ void decryptString(char **string)
 			(*string)[i] = shiftLetterBackwards(((*string)[i]));
 		else if (isdigit(((*string)[i])))
 			(*string)[i] = shiftDigitBackwards(((*string)[i]));
-		else if((*string)[i] == ' ')
+		else
 			continue;
-		else {
-			printf("Invalid Character !\n");
-			exit(EXIT_FAILURE);
-		}
 	}
 }
 

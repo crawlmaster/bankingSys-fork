@@ -4,7 +4,7 @@
 
 #include "../include/configDB.h"
 #include "../include/colors.h"
-#include "../include/criptString.h" // for #define SHIFT 7 
+#include "../include/cryptString.h" // for #define SHIFT 7 
 
 void saveConfig(dbConfig *config)
 {
@@ -23,7 +23,7 @@ void saveConfig(dbConfig *config)
 		return;
 	}
 	fclose(file);
-	printf(BOLD_GREEN "Config file (.meta) was saved successfully!\n" RESET);
+	printf(BOLD_GREEN "\nConfig file (.meta) was saved successfully!\n" RESET);
 }
 
 short int createConfigFile(dbConfig *config)

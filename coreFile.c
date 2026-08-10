@@ -5,7 +5,7 @@
 #include <time.h>
 #include <string.h>
 
-#include "./include/criptString.h"
+#include "./include/cryptString.h"
 #include "./include/colors.h" //text colors , weights
 #include "./include/configDB.h"
 #include "./include/clientConfig.h"
@@ -34,10 +34,10 @@ void clientUIFunction()
   return;
 }
 
-void adminUIFunction()
+void adminUIFunction(dbConfig *config)
 {
   printf("\nYou're in the admin section of the program!\n");
-  sleep(1);
+  loadDataBase(config);
 }
 
 void displayBankingLogo(){
@@ -64,7 +64,7 @@ int main(void)
   }
   else if (option == '2')
   {
-    adminUIFunction();
+    adminUIFunction(&config);
   }
   else
   {
