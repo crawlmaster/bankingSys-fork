@@ -12,7 +12,7 @@
 #define DATABASE_FILE "dataBase/dataBase.txt"
 
 #pragma pack(push , 1)
-typedef struct client
+typedef struct userAcc
 {
   __uint32_t ID;
   __uint64_t CNP;
@@ -21,12 +21,12 @@ typedef struct client
   char name[MAX_USER_NAME_LENGHT];
   char password[MAX_USER_PASS_LENGHT];
   double sold;
-} userAcc, *userAcc_ptr;
+} userAcc, *userAccPtr;
 
 #pragma pack(pop)
 
 // functions
 
-void loadDataBase(dbConfig *dataBaseConfig);
+void loadDataBase(dbConfig *dataBaseConfig , userAccPtr *hashTable , int *tableSize);
 
 #endif

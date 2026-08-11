@@ -9,6 +9,7 @@
 #include "./include/colors.h" //text colors , weights
 #include "./include/configDB.h"
 #include "./include/clientConfig.h"
+#include "./include/hashTable.h"
 
 // void cript_database (different file with separated header files)
 // void decript_database (same as cript_database function)
@@ -34,10 +35,10 @@ void clientUIFunction()
   return;
 }
 
-void adminUIFunction(dbConfig *config)
+void adminUIFunction(dbConfig *config , userAccPtr *hashTable , int *hashTableSize)
 {
   printf("\nYou're in the admin section of the program!\n");
-  loadDataBase(config);
+  loadDataBase(config , hashTable , hashTableSize);
 }
 
 void displayBankingLogo(){
@@ -46,9 +47,36 @@ void displayBankingLogo(){
   printf(BOLD "\n\nBanking Login...\n\n" RESET);
 }
 
+void printDataBase(userAccPtr *hashTable , int tableSize){
+  printf(BOLD_GREEN "Data base from hash table(Cryptated)\n" RESET);
+  for(int i = 0 ; i < tableSize ; ++i){
+    printf("ID : %d  CNP : %ld  IBAN : %s  Surname : %s  Name : %s  Password : %s  Sold : %.2lf\n" , hashTable[i]->ID , hashTable[i]->CNP , hashTable[i]->IBAN , hashTable[i]->surname , hashTable[i]->name , hashTable[i]->password , hashTable[i]->sold);
+  }
+  // printf(BOLD_GREEN "Data base from hash table(Decrypted)" RESET);
+  // for (int i = 0; i < tableSize; ++i)
+  // {
+  //   decryptString(hashTable[i]->ID);
+  //   decryptString(hashTable[i]->CNP);
+  //   decryptString(hashTable[i]->IBAN);
+  //   decryptString(hashTable[i]->surname);
+  //   decryptString(hashTable[i]->name);
+  //   decryptString(hashTable[i]->password);
+  //   decryptString(hashTable[i]->sold);
+  //   printf("ID : %d  CNP : %ld  IBAN : %s  Surname : %s  Name : %s  Password : %s  Sold : %le\n", hashTable[i]->ID, hashTable[i]->CNP, hashTable[i]->IBAN, hashTable[i]->surname, hashTable[i]->name, hashTable[i]->password, hashTable[i]->sold);
+  // }
+}
+
 int main(void)
 {
   displayBankingLogo();
+  // hash table
+  userAccPtr *hashTable = malloc(sizeof(userAccPtr) * INITIAL_BANK_CAPACITY);
+  if(!hashTable){
+    printf(BOLD_RED "Error occurred when creating the hash table!\n" RESET);
+    exit(EXIT_FAILURE);
+  }
+  int hashTableSize = 0;
+
   // load data base config
   dbConfig config;
   verifyFile(&config);
@@ -64,13 +92,14 @@ int main(void)
   }
   else if (option == '2')
   {
-    adminUIFunction(&config);
+    adminUIFunction(&config , hashTable , &hashTableSize);
   }
   else
   {
     printf("Any jailbreak attempts are recorded!\n");
     // .log file registration
   }
+  printDataBase(hashTable , hashTableSize);
   saveConfig(&config);
   // displayConfig(&config);
   return 0;
