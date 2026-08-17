@@ -20,7 +20,7 @@ typedef struct userAcc
   char surname[MAX_USER_NAME_LENGHT];
   char name[MAX_USER_NAME_LENGHT];
   char password[MAX_USER_PASS_LENGHT];
-  double sold;
+  __uint64_t sold;
 } userAcc, *userAccPtr;
 
 #pragma pack(pop)
@@ -28,5 +28,6 @@ typedef struct userAcc
 // functions
 
 void loadDataBase(dbConfig *dataBaseConfig , userAccPtr *hashTable , int *tableSize);
+short int checkClient(userAccPtr *hashTable , int tableSize);
 
 #endif

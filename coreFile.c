@@ -29,9 +29,15 @@
 // search_client_in_dataBase
 
 // Functions for UI
-void clientUIFunction()
+void clientUIFunction(userAccPtr *hashTable , int *tableSize)
 {
-  printf("\nYou're in the client section of the program!\n");
+  // printf("\nYou're in the client section of the program!\n");
+  if(checkClient(hashTable , (*tableSize)) == 1){
+
+  } else {
+    printf(BOLD_RED "Any jailbreak attempt will be stopped and recoreded!\n" RESET);
+    // register in log file
+  }
   return;
 }
 
@@ -47,24 +53,24 @@ void displayBankingLogo(){
   printf(BOLD "\n\nBanking Login...\n\n" RESET);
 }
 
-void printDataBase(userAccPtr *hashTable , int tableSize){
-  printf(BOLD_GREEN "Data base from hash table(Cryptated)\n" RESET);
-  for(int i = 0 ; i < tableSize ; ++i){
-    printf("ID : %d  CNP : %ld  IBAN : %s  Surname : %s  Name : %s  Password : %s  Sold : %.2lf\n" , hashTable[i]->ID , hashTable[i]->CNP , hashTable[i]->IBAN , hashTable[i]->surname , hashTable[i]->name , hashTable[i]->password , hashTable[i]->sold);
-  }
-  // printf(BOLD_GREEN "Data base from hash table(Decrypted)" RESET);
-  // for (int i = 0; i < tableSize; ++i)
-  // {
-  //   decryptString(hashTable[i]->ID);
-  //   decryptString(hashTable[i]->CNP);
-  //   decryptString(hashTable[i]->IBAN);
-  //   decryptString(hashTable[i]->surname);
-  //   decryptString(hashTable[i]->name);
-  //   decryptString(hashTable[i]->password);
-  //   decryptString(hashTable[i]->sold);
-  //   printf("ID : %d  CNP : %ld  IBAN : %s  Surname : %s  Name : %s  Password : %s  Sold : %le\n", hashTable[i]->ID, hashTable[i]->CNP, hashTable[i]->IBAN, hashTable[i]->surname, hashTable[i]->name, hashTable[i]->password, hashTable[i]->sold);
-  // }
-}
+// void printDataBase(userAccPtr *hashTable){
+//   // printf(BOLD_GREEN "Data base from hash table(Cryptated)\n" RESET);
+//   // for(int i = 0 ; i < tableSize ; ++i){
+//   //   printf("ID : %d  CNP : %ld  IBAN : %s  Surname : %s  Name : %s  Password : %s  Sold : %.2lf\n" , hashTable[i]->ID , hashTable[i]->CNP , hashTable[i]->IBAN , hashTable[i]->surname , hashTable[i]->name , hashTable[i]->password , hashTable[i]->sold);
+//   // }
+//   printf(BOLD_GREEN "\n\nData base from hash table(Decryptated)\n" RESET);
+//   char *buffer = malloc(sizeof(char) * MAX_BUFFER_SIZE);
+//   for (int i = 0; i < 10; ++i)
+//   {
+//     sprintf(buffer, "%u %ld %s %s %s %s %ld", hashTable[i]->ID, hashTable[i]->CNP, hashTable[i]->IBAN, hashTable[i]->surname, hashTable[i]->name, hashTable[i]->password, hashTable[i]->sold);
+//     printf("%s\n" , buffer);
+//     // printf("ID : %d  CNP : %ld  IBAN : %s  Surname : %s  Name : %s  Password : %s  Sold : %.2lf\n", hashTable[i]->ID, hashTable[i]->CNP, hashTable[i]->IBAN, hashTable[i]->surname, hashTable[i]->name, hashTable[i]->password, hashTable[i]->sold);
+//     cryptString(&buffer);
+//     printf("%s\n" , buffer);
+//     decryptString(&buffer);
+//     printf("%s\n\n" , buffer);
+//   }
+// }
 
 int main(void)
 {
@@ -88,7 +94,7 @@ int main(void)
   scanf("%c", &option);
   if (option == '1')
   {
-    clientUIFunction();
+    clientUIFunction(hashTable , &hashTableSize);
   }
   else if (option == '2')
   {
@@ -96,11 +102,11 @@ int main(void)
   }
   else
   {
-    printf("Any jailbreak attempts are recorded!\n");
+    printf(BOLD_RED "Any jailbreak attempts are recorded!\n" RESET);
     // .log file registration
   }
-  printDataBase(hashTable , hashTableSize);
-  saveConfig(&config);
-  // displayConfig(&config);
+  // printDataBase(hashTable);
+  // saveConfig(&config);
+  
   return 0;
 }
