@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include "../include/configDB.h"
 #include "../include/colors.h"
@@ -49,7 +50,7 @@ short int loadConfigFile(dbConfig *config)
 	FILE *fileConfig = fopen(FILE_PATH, "rb");
 	if (!fileConfig)
 	{
-		printf(BOLD_RED "\nError on opening and creating config file!\n" RESET);
+		printf(BOLD_RED "\nError on opening config file!\n" RESET);
 		return 0;
 	}
 
@@ -76,8 +77,14 @@ void verifyFile(dbConfig *fileConfig)
 	FILE *file = fopen(FILE_PATH, "rb");
 	if (file == NULL)
 	{
-		printf(BOLD_RED "Error occured when opening config file!\n" RESET);
-		return;
+		printf(BOLD_RED "File was not found!\nCreating file...\n" RESET);
+		file = fopen(FILE_PATH , "wb");
+
+		if(!file){
+			perror("Error ocurred when creating file.\n");
+			exit(EXIT_FAILURE);
+		}
+		createConfigFile(fileConfig);
 	}
 	// printf("%s file was opened!\n" , FILE_PATH);
 	char temp;

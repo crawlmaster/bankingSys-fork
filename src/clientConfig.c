@@ -15,8 +15,17 @@ void loadDataBase(dbConfig *dataBaseConfig , userAccPtr *hashTable , int *tableS
 	FILE *dataBase = fopen(DATABASE_FILE, "r");
 	if (!dataBase)
 	{
-		printf(BOLD_RED "Error occurred when openning the dataBase file!\n" RESET);
-		exit(EXIT_FAILURE);
+		printf(BOLD_RED "dataBase file not found!\n" BOLD_GREEN "Creating dataBase file..." RESET);
+
+		dataBase = fopen(DATABASE_FILE , "wb");
+
+		if(!dataBase){
+			perror("Error occured when creating dataBase file");
+			exit(EXIT_FAILURE);
+		}
+
+		printf("dataBase file was created Succesfully!\n");
+		fclose(dataBase);
 	}
 
 		char *buffer = malloc(sizeof(char) * MAX_BUFFER_SIZE);
@@ -66,4 +75,18 @@ void loadDataBase(dbConfig *dataBaseConfig , userAccPtr *hashTable , int *tableS
 	// free(tempPassword);
 	free(buffer);
 	fclose(dataBase);
+}
+
+short int checkClient(userAccPtr *hashTable , int size){
+	if(hashTable == NULL){
+		perror("Table is null!\n");
+		return -1;
+	}
+
+	if(size == 0){
+		printf("Table is empty!\n");
+		return -1;
+	}
+
+	return 1;
 }
