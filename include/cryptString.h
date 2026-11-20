@@ -12,5 +12,4 @@ char shiftDigitBackwards(char number);
 void cryptString(char **string);
 void decryptString(char **string);
 
-
 #endif

@@ -18,7 +18,7 @@ BOLD_YELLOW 	= \033[1;33m
 
 # make rules for compiling programs
 
-CC = gcc std=c99
+CC = gcc -std=c99
 CFLAGS = -Wall -Werror -Wextra -g 
 SRC = coreFile.c 
 EXT = ./src/cryptString.c ./src/configDB.c ./src/clientConfig.c ./src/hashTable.c
@@ -58,3 +58,7 @@ clean :
 	@echo ""
 
 	@-rm -rf $(EXEC_PATH)
+
+# Custom code formatting rule
+format:
+	clang-format -i -style=file *.c src/*.c include/*.h
