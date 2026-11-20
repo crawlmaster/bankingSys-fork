@@ -78,6 +78,16 @@ void verifyFile(dbConfig *fileConfig)
 		printf(BOLD_RED
 		       "Error occured when opening config file!\n" RESET);
 		return;
+	if (file == NULL)
+	{
+		printf(BOLD_RED "File was not found!\nCreating file...\n" RESET);
+		file = fopen(FILE_PATH , "wb");
+
+		if(!file){
+			perror("Error ocurred when creating file.\n");
+			exit(EXIT_FAILURE);
+		}
+		createConfigFile(fileConfig);
 	}
 	// printf("%s file was opened!\n" , FILE_PATH);
 	char temp;

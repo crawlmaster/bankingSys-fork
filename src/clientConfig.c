@@ -63,3 +63,17 @@ void loadDataBase(dbConfig *dataBaseConfig, userAccPtr *hashTable,
 	free(buffer);
 	fclose(dataBase);
 }
+
+short int checkClient(userAccPtr *hashTable , int size){
+	if(hashTable == NULL){
+		perror("Table is null!\n");
+		return -1;
+	}
+
+	if(size == 0){
+		printf("Table is empty!\n");
+		return -1;
+	}
+
+	return 1;
+}
