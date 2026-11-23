@@ -14,10 +14,19 @@ void loadDataBase(dbConfig *dataBaseConfig, userAccPtr *hashTable,
 		  int *tableSize)
 {
 	FILE *dataBase = fopen(DATABASE_FILE, "r");
-	if (!dataBase) {
-		printf(BOLD_RED
-		       "Error occurred when openning the dataBase file!\n" RESET);
-		exit(EXIT_FAILURE);
+	if (!dataBase)
+	{
+		printf(BOLD_RED "dataBase file not found!\n" BOLD_GREEN "Creating dataBase file..." RESET);
+
+		dataBase = fopen(DATABASE_FILE , "wb");
+
+		if(!dataBase){
+			perror("Error occured when creating dataBase file");
+			exit(EXIT_FAILURE);
+		}
+
+		printf("dataBase file was created Succesfully!\n");
+		// fclose(dataBase);
 	}
 
 	char *buffer = malloc(sizeof(char) * MAX_BUFFER_SIZE);

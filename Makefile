@@ -29,33 +29,32 @@ EXEC=$(EXEC_PATH)/coreFile
 all : $(EXEC)
 
 $(EXEC): $(SRC)
-	@echo ""
-	@echo "$(newline)$(BOLD_BLUE)[INFO]$(NC) $(BLUE) - Se creeaza directorul pentru executabil : $(EXEC_PATH)$(NC)"
+	@printf ""
+	@printf "$(newline)$(BOLD_BLUE)[INFO]$(NC) $(BLUE) - Se creeaza directorul pentru executabil : $(EXEC_PATH)$(NC)"
 	@mkdir -p $(EXEC_PATH)
-	@echo "$(BOLD_YELLOW)[Compiling]$(NC)$(YELLOW) - Se compileaza executabilul : $(SRC)$(NC)"
+	@printf "$(BOLD_YELLOW)[Compiling]$(NC)$(YELLOW) - Se compileaza executabilul : $(SRC)$(NC)"
 	@$(CC) $(CFLAGS) -o $(EXEC) $(SRC) $(EXT)
-	@echo "$(BOLD_GREEN)[Success]$(NC)$(GREEN) - Executabilul a fost creat cu succes in : $(EXEC)$(NC)"
-	@echo "$(BOLD_BLUE)[INFO]$(NC)$(BLUE) - run executable file with : make run$(NC)$(newline)"
-	@echo ""
+	@printf "$(BOLD_GREEN)[Success]$(NC)$(GREEN) - Executabilul a fost creat cu succes in : $(EXEC)$(NC)"
+	@printf "$(BOLD_BLUE)[INFO]$(NC)$(BLUE) - run executable file with : make run$(NC)$(newline)"
+	@printf ""
 
 run: $(EXEC)
-	@echo ""
-	@echo "$(newline)$(BOLD_BLUE)[running program ...]$(NC)$(newline)"
-	@echo ""
+	@printf ""
+	@printf "$(newline)$(BOLD_BLUE)[running program ...]$(NC)$(newline)"
+	@printf ""
 
 	@./$(EXEC)
 
 valgrind: $(EXEC)
-	@echo ""
-	@echo "$(BOLD_BLUE)[Valgrind]$(NC)$(BLUE) - Checking for memory leaks...$(NC)"
-	@echo ""
-
+	@printf ""
+	@printf "$(BOLD_BLUE)[Valgrind]$(NC)$(BLUE) - Checking for memory leaks...$(NC)"
+	@printf ""
 	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(EXEC)
 
 clean :
-	@echo ""
-	@echo "$(newline)$(BOLD_YELLOW)[cleaning ...]$(NC)$(YELLOW) Removing executabile files and temporary used directories$(newline)"
-	@echo ""
+	@printf ""
+	@printf "$(newline)$(BOLD_YELLOW)[cleaning ...]$(NC)$(YELLOW) Removing executabile files and temporary used directories$(newline)"
+	@printf ""
 
 	@-rm -rf $(EXEC_PATH)
 

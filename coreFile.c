@@ -29,14 +29,16 @@
 // Functions for UI
 void clientUIFunction(userAccPtr *hashTable, int *tableSize)
 {
-	// printf("\nYou're in the client section of the program!\n");
-	if (checkClient(hashTable, (*tableSize)) == 1) {
-	} else {
-		printf(BOLD_RED
-		       "Any jailbreak attempt will be stopped and recoreded!\n" RESET);
-		// register in log file
-	}
-	return;
+  // printf("\nYou're in the client section of the program!\n");
+  if(checkClient(hashTable , (*tableSize)) == 1){
+  
+  } else if(checkClient(hashTable , *(tableSize) == -1)){
+    printf(BOLD_RED "Table for now is empty!\nFirst insert users to acces the data base!\n" RESET);
+  } else {
+    printf(BOLD_RED "Any jailbreak attempt will be stopped and recoreded!\n" RESET);
+    // register in log file
+  }
+  return;
 }
 
 void adminUIFunction(dbConfig *config, userAccPtr *hashTable,
@@ -46,12 +48,10 @@ void adminUIFunction(dbConfig *config, userAccPtr *hashTable,
 	loadDataBase(config, hashTable, hashTableSize);
 }
 
-void displayBankingLogo()
-{
-	printf(BOLD_GREEN
-	       "     ____              _    _                             _                 \n    | __ )  __ _ _ __ | | _(_)_ __   __ _   ___ _   _ ___| |_ ___ _ __ ___  \n    |  _ \\ / _` | '_ \\| |/ / | '_ \\ / _` | / __| | | / __| __/ _ \\ '_ ` _ \\ \n    | |_) | (_| | | | |   <| | | | | (_| | \\__ \\ |_| \\__ \\ ||  __/ | | | | |\n    |____/ \\__,_|_| |_|_|\\_\\_|_| |_|\\__, | |___/\\__, |___/\\__\\___|_| |_| |_|\n                                    |___/       |___/" RESET);
-	usleep(500000);
-	printf(BOLD "\n\nBanking Login...\n\n" RESET);
+void displayBankingLogo(){
+  printf(BOLD_GREEN "\n     ____              _    _                             _                 \n    | __ )  __ _ _ __ | | _(_)_ __   __ _   ___ _   _ ___| |_ ___ _ __ ___  \n    |  _ \\ / _` | '_ \\| |/ / | '_ \\ / _` | / __| | | / __| __/ _ \\ '_ ` _ \\ \n    | |_) | (_| | | | |   <| | | | | (_| | \\__ \\ |_| \\__ \\ ||  __/ | | | | |\n    |____/ \\__,_|_| |_|_|\\_\\_|_| |_|\\__, | |___/\\__, |___/\\__\\___|_| |_| |_|\n                                    |___/       |___/\n" RESET);
+  // sleep(1);
+  // printf(BOLD "\n\nBanking Login...\n\n" RESET);
 }
 
 // void printDataBase(userAccPtr *hashTable){

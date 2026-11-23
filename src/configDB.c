@@ -6,6 +6,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <errno.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 void saveConfig(dbConfig *config)
 {
@@ -77,16 +80,31 @@ void verifyFile(dbConfig *fileConfig)
 	FILE *file = fopen(FILE_PATH, "rb");
 	if (file == NULL) {
 		printf(BOLD_RED
-		       "File was not found!\nCreating file...\n" RESET);
-		file = fopen(FILE_PATH, "wb");
+		       "Error occured when opening config file!\n" RESET);
+		return;
+	}
+	if (file == NULL)
+	{
+		printf(BOLD_RED "File was not found!\nChecking if directory is directory exists : " RESET);
+
+		if(mkdir(BATABASE_DIR, 0755) == 0){
+			printf(BOLD_GREEN "Directory has been created!\n" RESET);
+			printf(BOLD "Creating the config file for data base...\n" RESET);
+		} else if(errno == EEXIST){
+			printf(BOLD_GREEN "data base directory exists!\n" RESET);
+			printf(BOLD "Creating the config file for data base...\n" RESET);
+		} else {
+			perror(BOLD_RED "Failed to create the data base directory!\n" RESET);
+		}
+		
+		file = fopen(FILE_PATH , "wb");
 
 		if (!file) {
 			perror("Error ocurred when creating file.\n");
-			exit(EXIT_FAILURE);
+			exit(1);
 		}
 		createConfigFile(fileConfig);
 	}
-	// printf("%s file was opened!\n" , FILE_PATH);
 	char temp;
 	temp = fgetc(file);
 	if (temp == EOF) {
