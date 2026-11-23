@@ -3,6 +3,7 @@
 #include "../include/colors.h"
 #include "../include/cryptString.h" // for #define SHIFT 7
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <time.h>
 
@@ -76,14 +77,10 @@ void verifyFile(dbConfig *fileConfig)
 	FILE *file = fopen(FILE_PATH, "rb");
 	if (file == NULL) {
 		printf(BOLD_RED
-		       "Error occured when opening config file!\n" RESET);
-		return;
-	if (file == NULL)
-	{
-		printf(BOLD_RED "File was not found!\nCreating file...\n" RESET);
-		file = fopen(FILE_PATH , "wb");
+		       "File was not found!\nCreating file...\n" RESET);
+		file = fopen(FILE_PATH, "wb");
 
-		if(!file){
+		if (!file) {
 			perror("Error ocurred when creating file.\n");
 			exit(EXIT_FAILURE);
 		}

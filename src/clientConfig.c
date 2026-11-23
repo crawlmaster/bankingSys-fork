@@ -4,6 +4,7 @@
 #include "../include/configDB.h"
 #include "../include/cryptString.h"
 #include "../include/hashTable.h"
+#include <inttypes.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -32,10 +33,10 @@ void loadDataBase(dbConfig *dataBaseConfig, userAccPtr *hashTable,
 	if (dataBaseConfig->isEncrypted == 0) {
 		// first time encryption
 		while (fgets(buffer, MAX_BUFFER_SIZE, dataBase) != NULL) {
-			int parsedArguments =
-				sscanf(buffer, "%u %ld %s %s %s %s %ld",
-				       &tempID, &tempCNP, tempIBAN, tempSurname,
-				       tempName, tempPassword, &tempSold);
+			int parsedArguments = sscanf(
+				buffer, "%u " "%"SCNu64 " %s %s %s %s " "%"SCNu64,
+				&tempID, &tempCNP, tempIBAN, tempSurname,
+				tempName, tempPassword, &tempSold);
 
 			if (parsedArguments != 7) {
 				printf(BOLD_RED
@@ -51,9 +52,9 @@ void loadDataBase(dbConfig *dataBaseConfig, userAccPtr *hashTable,
 		// the file is already encrypted - first of all decrypt it when load it in mememory
 		while (fgets(buffer, MAX_BUFFER_SIZE, dataBase) != NULL) {
 			decryptString(&buffer);
-			sscanf(buffer, "%u %ld %s %s %s %s %ld", &tempID,
-			       &tempCNP, tempIBAN, tempSurname, tempName,
-			       tempPassword, &tempSold);
+			sscanf(buffer, "%u " "%"SCNu64 " %s %s %s %s " "%"SCNu64,
+			       &tempID, &tempCNP, tempIBAN, tempSurname,
+			       tempName, tempPassword, &tempSold);
 		}
 	}
 	// free(tempIBAN);
@@ -64,13 +65,14 @@ void loadDataBase(dbConfig *dataBaseConfig, userAccPtr *hashTable,
 	fclose(dataBase);
 }
 
-short int checkClient(userAccPtr *hashTable , int size){
-	if(hashTable == NULL){
+short int checkClient(userAccPtr *hashTable, int size)
+{
+	if (hashTable == NULL) {
 		perror("Table is null!\n");
 		return -1;
 	}
 
-	if(size == 0){
+	if (size == 0) {
 		printf("Table is empty!\n");
 		return -1;
 	}
